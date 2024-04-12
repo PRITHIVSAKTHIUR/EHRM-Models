@@ -1,0 +1,17 @@
+<svg width="25px" height="25px" viewBox="0 0 25 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <rect x="285" y="77" width="25" height="25" id="rect-1"></rect>
+  </defs>
+  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="xl-&gt;=-1200-Filters" transform="translate(-793.000000, -494.000000)">
+      <g id="Filters" transform="translate(-6.000000, 200.000000)">
+        <g id="News" transform="translate(514.000000, 217.000000)">
+          <g id="Checkbox-(Checked)">
+            <image x="285" y="77" width="25" height="25" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAABcmlDQ1BJQ0MgUHJvZmlsZQAAKJF9kMsrRHEUxz8zaOS5YCEptwxZII8SO8ZCykKD8trcue48aua63XsnI1tlY6EsxMZr4R8QW2WtFJGSjf+A2EjX+Rkaj3LqdD59f+ec3zkHgmHdttPFnZCxPCc6HNGmpme00ANlNFJFK+iGaw+OjY0i9hV/2ss1ARUv21Wvv+//Wvm86RoQKBXuNWzHEx4Qblr0bMXzwrWODCWcU5zI85riWJ53P3ImokPCR8KakdSlLnAl3GYknQwE1V/h2LecxDfOpLPG5zxqkwrTmhyXWC/egEuUYSJoxMiSIo1Hu0QLPDPnqaKhBXvJSSWSnjYoFzC1EcvoaNO6O7v6Qd3z950K2oLM3vcMResFLbYJJ6tQd1vQwjtQvQLHZ7bu6B9SkXgwHofHQ6ichpoLKJt14z3d+U0qIlBy7/tPzRDagLd133/d8/23fSm+g1Mrf5vPXhzcwMQyjJ7D1ja0SO/quXeXimdM2U2YSgAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAGaADAAQAAAABAAAAGQAAAAB7O7VkAAACdUlEQVRIDbWWu08UURTGz7KsbngsCoSEd6kNvhDNGiEQpeGR2AA9lVY0UBoRK0QqbPgToNEEKAyFBQmb8IwQE1uWJRhQoxBxYWHh+0YuztyZhZnNepJfdu6Zc863596Ze8f38PM7Occu414TeALCoBoUgF9gDUTAe/AR7ANH86UQyUZ0N+gHpeAi20LAIHgLDvTgLN2B8TWwCEaBGwGESQkYBvPgOrCYLlKHu7PghiXK/YB5zL9vTjGL8B9Mg0JzQBrXV5HzAZx1pEQCcI4BLmomjHXGAeuKEunBdbpTxDpOVgMn6xoiQfz2cfAfjHWD7KQN8OlI24JZfnlTFZbbucV6DdZt5/vQqt/xMv4r8EBu5hTJMRKXf3/T01vYSa3udTumwBA6oMCnve/yPDbnlHqXIlVOdy7yKYFbOcWGQG90VuLJI6e0Sop4fmwp8LoyLC4EKFpAkR1e6dYYKpOBijoJ+Bjyz5QAF5lTdE4HKmmHFdbVyPz7KFQhTaFy6TcJUWAQHXgQYMkYRbip2WxgY0FmdjelIb/UEMrzBwyBO6cd9EUjqdZArzXHrb4DXm4BNuNUvUQn9RD6eXQgV/yXZMWYooj8SR7a4lM4OtnJBOB5YLPEcVJexOblx2HcEKBQLzrwILCNohMUiYMhm8Kpg0KvNhYhtC8jX1e9CLAC68bVycjdcgFkcpNcRT2+6Al2QkuALsCzOxPGOp2Adc+2el5/AY+B4/owwKUxvxmwnmGqEzXmlPEIXlIOj7/LiL8HLK+FLsKaUcAz+hnYBG6McU8BBfipZDG18BanacADjedNK+Ai8rsrBLgVsRi/aqbAJOBT6mgnmB+yroFGJF0AAAAASUVORK5CYII="></image>
+            <use fill-opacity="0" fill="#000000" fill-rule="evenodd" xlink:href="#rect-1"></use>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
