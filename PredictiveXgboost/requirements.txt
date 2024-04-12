@@ -1,0 +1,11 @@
+gradio
+streamlit
+joblib
+tensorflow
+numpy
+opencv-python
+scikit-image
+scikit-learn==1.0.2
+xgboost
+joblib == 1.2.0
+pickles == 0.1.1
