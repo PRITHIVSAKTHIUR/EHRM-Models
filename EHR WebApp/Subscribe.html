@@ -1,0 +1,201 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+<title></title>
+<style>
+   
+    *{
+        box-sizing: border-box;
+    }
+
+    #Subs-Dialog{
+        color: white;
+        border: none;
+        border-radius:10px;
+        background-color: rgb(255 255 255/30%);
+        backdrop-filter: blur(10px);
+    }
+
+    .maindiv{
+        height:auto;
+        width:auto;
+        margin-left:auto;
+        margin-right:auto;
+    }
+    .pay{
+        display: flex;
+    }
+    div >a{
+        padding: 1px;
+    }
+
+h4{
+    padding: 1%;
+}
+
+/*.div1 > h2{
+    color:red;
+}
+
+.div3 > h2{
+    color:lightgreen;
+}
+*/
+.div1{
+    border: black 2px solid;
+    border-width: 2px 2px 2px 0px;
+    padding: 3%;
+}
+.div2{
+    border:black 2px solid;
+    border-width: 2px 2px 2px 0px;
+    padding: 3%;
+}
+.div3{
+    border:black 2px solid;
+    border-width: 2px 0px 2px 0px;
+    padding: 3%;
+}
+.plan{
+    opacity: 0.7;
+}
+
+.a1{
+    text-decoration: none;
+    padding: 2%;
+    margin :  1% 0%;
+    color: aliceblue;
+    border-radius: 5px;
+    background:red;
+    height: 15px;
+    width: max-content;
+
+}
+.a2{
+    text-decoration: none;
+    padding: 2%;
+    margin :  1% 0%;
+    color: aliceblue;
+    border-radius: 5px;
+    background:blue;
+    height: 15px;
+    width: max-content;
+
+}
+.a3{
+    text-decoration: none;
+    padding: 2%;
+    margin :  3% 0%;
+    color: aliceblue;
+    border-radius: 5px;
+    background:green;
+    height: 10%;
+    width:10%;
+}
+
+.div4 p{
+    margin: 1%;
+}
+.bottom{
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+    border: #6d6d6d 2px solid;
+    border-width: 0px 0px 0px 0px;
+    text-align: center;
+}
+.ba{
+    color: #0f4bf0;
+}
+
+.head{
+    display: flex;
+    justify-content: space-between;
+}
+/*#close-btn{
+    padding-right:1px;
+    padding-left: 1px;
+}*/
+</style>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  const subsButton = document.getElementById("Subscribe");
+  const cancelButton = document.getElementById("close-btn");
+  const dialog = document.getElementById("Subs-Dialog");
+  
+
+
+  // Update button opens a modal dialog
+  subsButton.addEventListener("click", () => {
+    dialog.showModal();
+  });
+
+  // Form cancel button closes the dialog box
+  cancelButton.addEventListener("click", () => {
+    dialog.close();
+  })
+});
+</script>
+</head>
+<body>
+<dialog id="Subs-Dialog">
+      <div class="maindiv">
+        <div class="head">
+            <h2>Upgrade your Plan</h2>
+            <i class="fas fa-times" id="close-btn"></i>
+        </div>
+        <div class="pay">
+            <div class="div1">
+                <h2>Free</h2>
+                <p class="plan">INR $0/Month</p>
+                <a href="" class="a1">your current  plan</a>
+                <p>For people just getting strated with basic functionalities</p>
+                <ul>
+                    <li>limited user time </li>
+                    <li>Access to Model Doc</li> 
+                    <li>No services available to use, only view</li>
+                </ul>
+                <p>Having an existing plan?</p>
+            </div>
+            <div class="div2">
+                <h2> User</h2>
+                <p class="plan">INR $499/Month</p>
+                <a href="" class="a2">Upgrade to user</a>
+                <p>For people Getting started with basic plus functionalities</p>
+
+                <ul>
+                    <li>Unlimited user time </li> 
+                    <li>Access to All services
+                    </li> 
+                    <li>Only one services at a time</li>
+                </ul>
+            </div>
+            <div class="div3">
+                <h2>Super User</h2>
+                <p class="plan">INR $999/Month</p>
+                <a href="" class="a3">Upgrade to Super user</a>
+                <p>For people Getting started with Pro functionalities</p> 
+
+                <ul>
+                    <li>Access to All services</li>
+                    <li>You can join the Beta services
+                    </li> 
+                    <li>Uses N no.of Services at a time</li>
+                </ul>
+                <p>*pricing billed annually minimum 2 user</p>
+            </div>
+        </div>
+       
+        <h4 class="bottom">Need more capabilities?see <a href="" class="ba
+            "> EHRM Policies</a></h4>
+
+    </div>
+</dialog>
+<div>
+  <button id="Subscribe">Subscribe</button>
+</div>
+
+</body>
+</html> 

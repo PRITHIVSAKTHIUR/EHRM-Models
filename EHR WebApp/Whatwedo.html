@@ -1,0 +1,102 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+<title></title>
+<style>
+
+
+    #About-Dialog{
+        color: white;
+        border: none;
+        border-radius:10px;
+        background-color: rgb(255 255 255/30%);
+        backdrop-filter: blur(10px);
+    }
+    
+    .about-div{
+        height:auto;
+        max-width:600px;
+        display: flex;
+        flex-direction: column;
+    }
+    .content > h2{
+        text-align: center;
+        color:blue;
+    }
+    .header > i{
+        float: right;
+    }
+
+</style>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{
+  const aboutButton = document.getElementById("Sign-in");
+  const cancelButton = document.getElementById("close-btn");
+  const dialog = document.getElementById("Signin");
+  
+
+
+  // Update button opens a modal dialog
+  aboutButton.addEventListener("click", () => {
+    dialog.showModal();
+  });
+
+  // Form cancel button closes the dialog box
+  cancelButton.addEventListener("click", () => {
+    dialog.close();
+  })
+});
+</script>
+</head>
+<body>
+<dialog id="Signin">
+    <div class="about-div">
+        <div class="header">
+            <i class="fas fa-times" id="close-btn"></i>
+        </div>
+        <div class="content">
+            <h2>EHRM</h2>
+            <ul>
+                <li>   Sign-up and memberships are currently disabled. We will get back soon. Stay tuned!</li>
+                <br>
+                <li>To learn more about EHRM, visit our model documentation and explore the generative healthcare services we provide.</li><br>
+                <li> This is the development stage of our maturity model, pushing healthcare informatics into the future world of tech.</li>
+                <br>
+                <li>
+                     Contact: ehrmhealth@gmail.com
+                </li>
+                <br>
+                <li>
+                    Join hands in the development of the new era. Donate: 9944193417@paytm.
+                </li>
+            </ul>
+            <h2>
+                &#x2022;  Diagnose with precision, recuperate with resilience &#x2022;
+            </h2>
+        </div>
+    </div>
+</dialog>
+<div>
+  <button id="Sign-in">Aboutus</button>
+</div>
+
+</body>
+</html> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

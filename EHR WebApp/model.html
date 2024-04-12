@@ -1,0 +1,1502 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="description" content="popModal - jquery plugin for showing tooltips, titles, modal dialogs and etc">
+<meta name="keywords" content="popup, dialog, notification-popups, modal-dialogs, html, javascript, notifications, modal, notify, confirm">
+<title>Maturity Model</title>
+<style>
+* {margin:0;font-family:Roboto,sans-serif;outline:0;box-sizing:border-box;font-size:14px}
+body {background:#f1f1f1}
+
+::-webkit-scrollbar {width:10px}
+::-webkit-scrollbar-track {background-color:#f1f1f1}
+::-webkit-scrollbar-thumb {background-color:#9699a2}
+::-webkit-scrollbar-thumb:hover {background-color:#555}
+
+#page {margin:30px auto 60px;width:40%;min-width:800px;min-height:500px}
+#page_content {background:#fff;box-shadow:0 1px 5px #ccc;margin:20px 0 20px;border-radius:3px;position:relative;padding:30px 30px 60px}
+
+.pageCaption {margin-bottom:40px;font-size:34px;line-height:40px}
+.blockCaption {margin-bottom:20px;font-size:24px;border-bottom:1px solid #ddd;line-height:40px}
+
+#header {}
+.prjData {float:right;font-weight:500;line-height:24px;display:flex}
+.prjData > a {font-size:12px;display:inline-block;padding:0 10px;border-radius:3px;text-decoration:none;margin-left:5px;transition:all 0.2s ease-in-out}
+.prjData > a:hover {box-shadow:inset 0 0 0 30px rgba(0,0,0,0.2)}
+.prjData > .prjVer {background:transparent;color:#555;display:inline-block;padding:0 10px;margin-left:5px;font-size:12px}
+.prjData > .prjVer > span {margin-left:10px;font-size:12px;color:#999}
+.prjData > .prjDownloadLink {color:#fff;background:#0084ff}
+.prjData > .prjGitLink {color:#555;background:#ccc}
+.prjName {font-size:24px;font-weight:500;line-height:24px}
+.prjDesc {color:#777;margin-top:5px;font-size:90%}
+
+#footer {}
+.prjCopyright {color:#777}
+.prjLicense {float:right;font-size:12px}
+.prjAuthor {font-size:12px}
+
+
+.exampleContainer {margin:-1px 0 50px}
+.exampleContainer:last-child {margin-bottom:0}
+.exampleContainer .exampleLive {padding:20px 0;font-size:14px}
+.exampleContainer .exampleLive:after {content:'';clear:both;display:table}
+.exampleContainer .exampleLive .exampleLiveTitle {padding-bottom:10px}
+.exampleContainer .exampleCode {background:#2b2f3b;padding:20px;overflow:auto;border-radius:4px}
+.exampleContainer .exampleCode pre {line-height:0}
+.exampleContainer .exampleCode code {white-space:pre-line}
+.exampleContainer .exampleCode code * {font-family:consolas;font-size:13px}
+.exampleContainer .exampleCode code > p {line-height:20px;color:#7993ad;display:inline-block}
+.exampleContainer .exampleCode code .tab {padding-left:15px}
+.exampleContainer .exampleCode code .tab2 {padding-left:30px}
+.exampleContainer .exampleCode code .tab3 {padding-left:45px}
+.exampleContainer .exampleCode code .tab4 {padding-left:60px}
+.exampleContainer .exampleCode code .tag {color:#97e0e9}
+.exampleContainer .exampleCode code .text {color:#fff}
+.exampleContainer .exampleCode code .key {color:#bf5c5b}
+.exampleContainer .exampleCode code .val {color:#fadf8c}
+.exampleContainer .exampleCode code .var {color:#aae997}
+.exampleContainer .exampleCode code .var2 {color:#b297e9}
+
+.docContainer {margin-bottom:40px}
+.docContainer:last-child {margin-bottom:0}
+.docContainer > .docLive > .docTitle {padding-bottom:10px}
+.docContainer > .docLive > .docText {padding-bottom:10px;font-size:13px;color:#444}
+.docContainer > .docLive > p {margin-bottom:10px;line-height:22px}
+.docContainer > .docCode {background:#f7f7f9;padding:20px;overflow:auto;border-radius:4px}
+.docContainer > .docCode + .docLive {margin-top:20px}
+.docContainer > .docCode pre {line-height:0}
+.docContainer > .docCode code {white-space:pre-line}
+.docContainer > .docCode code * {font-family:consolas;font-size:13px}
+.docContainer > .docCode code > p {line-height:22px;color:#7993ad;display:inline-block}
+.docContainer > .docCode code .tab {padding-left:15px}
+.docContainer > .docCode code .tab2 {padding-left:30px}
+.docContainer > .docCode code .tab3 {padding-left:45px}
+.docContainer > .docCode code .tab4 {padding-left:60px}
+.docContainer > .docCode code .tag {color:#26bfef}
+.docContainer > .docCode code .text {color:#333}
+.docContainer > .docCode code .key {color:#f52222}
+.docContainer > .docCode code .val {color:#007b10}
+.docContainer > .docCode code .var {color:#1cc1d4}
+.docContainer > .docCode code .var2 {color:#7c46e8}
+.docContainer .code {background:#d9dee2;display:inline-block;padding:0 2px;border-radius:3px;line-height:18px;font-family:consolas;font-size:13px}
+
+
+
+/* btn */
+.btn {display:inline-block;cursor:pointer;background:#fff;border:1px solid #bbb;height:34px;padding:6px 12px;font-size:14px;line-height:18px;transition:all 0.3s ease-in-out}
+.btn.btn-default {}
+.btn.btn-default:hover {background:#eee;border-color:#bbb}
+.btn.btn-default:focus {background:#ddd;border-color:#bbb}
+.btn.btn-primary {background-color:#0084ff;border-color:#0084ff;color:#fff}
+.btn.btn-primary:hover {background-color:#006dd2;border-color:#006dd2}
+.btn.btn-primary:focus {background-color:#0155a2;border-color:#0155a2;transform:translateY(1px)}
+.btn.btn-default[disabled] {background:#fafafa!important;border-color:#ccc!important;color:#aaa}
+.btn.btn-primary[disabled] {background:#3F9DD0!important;border-color:#537FA9!important;color:#ACD3E8;box-shadow:none!important}
+
+.btn.btn-left {float:left;margin:0 5px 0 0!important}
+
+
+/* tabs */
+.tabs_container {position:fixed;left:calc(50% - 400px - 180px);width:160px;margin-top:-30px}
+.tabs_container:after {content:'';clear:both;display:table}
+.tabs_container > .tab {line-height:40px;cursor:pointer;color:#7d8798;margin:0 15px;font-size:14px}
+.tabs_container > .tab > span {position:relative;display:inline-block;line-height:24px}
+.tabs_container > .tab.active > span {color:#000}
+.tabs_container > .tab > span:before {content:'';position:absolute;height:2px;left:0;width:0;bottom:0;background:#0084ff;transition:.2s}
+.tabs_container > .tab.active > span:before,
+.tabs_container > .tab:hover > span:before {width:100%}
+.tabs_container > .tab:hover {color:#000}
+.tabs_container > .totop {position:fixed;bottom:30px;width:160px;padding:20px;line-height:20px;text-align:center;background:rgba(200, 200, 200, 0.2);font-size:25px;color:#7d8798;border-radius:3px;cursor:pointer;transition:all 0.3s ease-in-out}
+.tabs_container > .totop:hover {background:rgba(200, 200, 200, 0.4)}
+.page_container {position:relative}
+.page_container > .page {min-height:900px;padding-bottom:150px;position:relative}
+.page_container > .page:after {content:'';position:absolute;bottom:100px;border-bottom:1px solid #eee;margin:auto;left:-30px;right:-30px}
+.page_container > .page:last-child {padding-bottom:0}
+.page_container > .page:last-child:after {display:none}
+
+
+
+@media (max-width: 840px){
+#page {width:auto;min-width:0;margin:20px 20px 100px}
+}
+</style>
+<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500">
+<link type="text/css" rel="stylesheet" href="popModal.css">
+</head>
+<body>
+
+<div id="page">
+
+	<div id="header">
+		<div class="prjData">
+			<div class="prjVer" title="Current version/date">1.0.0<span>[1.0.0v]</span></div>
+			<a href="https://drive.google.com/file/d/1oauPI-uGk68a6J_nNUVwdcX_sA55K2RM/view?usp=sharing" class="prjDownloadLink">Download</a>
+			<a href="https://github.com/PRITHIVSAKTHIUR/Health-Care" class="prjGitLink">GitHub Repo</a>
+		</div>
+		<div class="prjName">Maturity Model Documentation</div>
+		<div class="prjDesc">Documentation of Models Used in the Clinical Support System</div>
+	</div>
+	
+	
+	<div id="page_content">
+	
+		<div class="tabs_container">
+			<div class="tab active" data-tab="Maturity Model"><span>Maturity Model</span></div>
+			<div class="tab" data-tab="Healthcare GPT"><span>Healthcare GPT</span></div>
+			<div class="tab" data-tab="Health Instructor"><span>Health Instructor</span></div>
+			<div class="tab" data-tab="OHIF"><span>OHIF</span></div>
+			<div class="tab" data-tab="Medical-LLM Leaderboard"><span>LLM Leaderboard</span></div>
+			<div class="tab" data-tab="Clinical DataBase"><span>Clinical DataBase</span></div>
+			<div class="tab" data-tab="Contributors"><span>Contributors</span></div>
+			<div class="totop">&#9652;</div>
+		</div>
+		<div class="page_container">
+			<div class="page" data-page="Maturity Model">
+				
+				<div class="pageCaption">Maturity Model</div>
+				
+				<div class="blockCaption">Documentation</div>
+				
+				<div class="docContainer">
+					<div class="docLive">
+						<div class="docTitle">About</div>
+					</div>
+					<div class="docCode"><pre><code>
+						<p>The Mistral-Maturity-LLM Large Language Model is an improved instruct fine-tuned version of [Mistral-7B-Instruct-v0.1]</p>
+					</code></pre></div>
+				</div>
+
+				<div class="docContainer">
+					<div class="docLive">
+						<div class="docTitle">Instruction format</div>
+					</div>
+					<div class="docCode"><pre><code>
+						<p>In order to leverage instruction fine-tuning, your prompt should be surrounded by [INST] and [/INST] tokens. The very first instruction should begin with a begin of sentence id. The next instructions should not. The assistant generation will be ended by the end-of-sentence token id.</p>
+					
+					</code></pre></div>
+				</div>
+				
+				<div class="docContainer">
+					<div class="docLive">
+						<div class="docTitle">Pipeline eg.</div>
+					</div>
+					<div class="docCode"><pre><code>
+						<p>from transformers import AutoModelForCausalLM, AutoTokenizer
+
+							device = "cuda" # the device to load the model onto
+							
+							
+							messages = [
+								{"role": "user", "content": "What is your favourite condiment?"},
+								{"role": "assistant", "content": "Well, I'm quite partial to a good squeeze of fresh lemon juice. It adds just the right amount of zesty flavour to whatever I'm cooking up in the kitchen!"},
+								{"role": "user", "content": "Do you have mayonnaise recipes?"}
+							]
+							
+							encodeds = tokenizer.apply_chat_template(messages, return_tensors="pt")
+							
+							model_inputs = encodeds.to(device)
+							model.to(device)
+							
+							generated_ids = model.generate(model_inputs, max_new_tokens=1000, do_sample=True)
+							decoded = tokenizer.batch_decode(generated_ids)
+							print(decoded[0])
+							</p>
+					</code></pre></div>
+				</div>
+				
+				<div class="docContainer">
+					<div class="docLive">
+						<div class="docTitle">INST</div>
+					</div>
+					<div class="docCode"><pre><code>
+						<p>text = "[INST] What is your favourite condiment? [/INST]"
+							"Well, I'm quite partial to a good squeeze of fresh lemon juice. It adds just the right amount of zesty flavour to whatever I'm cooking up in the kitchen!</s> "
+							"[INST] Do you have mayonnaise recipes? [/INST]"
+							</p>
+					</code></pre></div>
+				</div>
+				
+				<div class="docContainer">
+					<div class="docLive">
+						<div class="docTitle">Notes</div>
+						<div class="docText">Add a new adapter</div>
+					</div>
+					<div class="docCode"><pre><code>
+						<p>from transformers import AutoModelForCausalLM, OPTForCausalLM, AutoTokenizer
+							from peft import LoraConfig
+							
+							model_id = "facebook/opt-350m"
+							model = AutoModelForCausalLM.from_pretrained(model_id)
+							
+							lora_config = LoraConfig(
+								target_modules=["q_proj", "k_proj"],
+								init_lora_weights=False
+							)
+							
+							model.add_adapter(lora_config, adapter_name="adapter_1")</p>
+					
+					</code></pre></div>
+					<div class="docLive">
+						<div class="docText">As you can see in the following code, you only need to add four additional lines of code to your training loop to enable distributed training!</div>
+					</div>
+					<div class="docCode"><pre><code>
+						<p>+ from accelerate import Accelerator
+							from transformers import AdamW, AutoModelForSequenceClassification, get_scheduler
+						  
+						  + accelerator = Accelerator()
+						  
+							model = AutoModelForSequenceClassification.from_pretrained(checkpoint, num_labels=2)
+							optimizer = AdamW(model.parameters(), lr=3e-5)
+						  
+						  - device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
+						  - model.to(device)
+						  
+						  + train_dataloader, eval_dataloader, model, optimizer = accelerator.prepare(
+						  +     train_dataloader, eval_dataloader, model, optimizer
+						  + )
+						  
+							num_epochs = 3
+							num_training_steps = num_epochs * len(train_dataloader)
+							lr_scheduler = get_scheduler(
+								"linear",
+								optimizer=optimizer,
+								num_warmup_steps=0,
+								num_training_steps=num_training_steps
+							)
+						  
+							progress_bar = tqdm(range(num_training_steps))
+						  
+							model.train()
+							for epoch in range(num_epochs):
+								for batch in train_dataloader:
+						  -         batch = {k: v.to(device) for k, v in batch.items()}
+									outputs = model(**batch)
+									loss = outputs.loss
+						  -         loss.backward()
+						  +         accelerator.backward(loss)
+						  
+									optimizer.step()
+									lr_scheduler.step()
+									optimizer.zero_grad()
+									progress_bar.update(1)</p>
+					</code></pre></div>
+					<div class="docLive">
+						<p>Once you’ve added the relevant lines of code, launch your training in a script or a notebook like Colaboratory.</p>
+						<p>If you are running your training from a script, run the following command to create and save a configuration file:
+
+							Copied
+							accelerate config
+							Then launch your training with:
+							
+							Copied
+							accelerate launch train.py</p>
+					</div>
+				</div>
+				
+				
+				
+				
+				
+				
+				<div class="blockCaption">Examples</div>
+				
+				<div class="exampleContainer">
+					<div class="exampleLive">
+						<div class="exampleLiveTitle">Config.json</div>
+						<button class="hintModal btn btn-primary">Example
+							<div class="hintModal_container">
+								Regarding the line you provided at the end of your message (pip install git+https://github.com/huggingface/transformers), it seems to be a command to install the transformers library directly from its GitHub repository. This can be useful if you want to install a version of the library that may contain updates or fixes not yet available in the version distributed via PyPI.
+							</div>
+						</button>
+					</div>
+					<div class="exampleCode"><pre><code>
+						<p> {
+							"architectures": [
+							  "MistralForCausalLM"
+							],
+							"attention_dropout": 0.0,
+							"bos_token_id": 1,
+							"eos_token_id": 2,
+							"hidden_act": "silu",
+							"hidden_size": 4096,
+							"initializer_range": 0.02,
+							"intermediate_size": 14336,
+							"max_position_embeddings": 32768,
+							"model_type": "mistral",
+							"num_attention_heads": 32,
+							"num_hidden_layers": 32,
+							"num_key_value_heads": 8,
+							"rms_norm_eps": 1e-05,
+							"rope_theta": 1000000.0,
+							"sliding_window": null,
+							"tie_word_embeddings": false,
+							"torch_dtype": "bfloat16",
+							"transformers_version": "4.36.0",
+							"use_cache": true,
+							"vocab_size": 32000
+						  }</p>
+					</code></pre></div>
+				</div>
+				
+				<div class="exampleContainer">
+					<div class="exampleLive">
+						<div class="exampleLiveTitle">model.safetensors.index.json
+						</div>
+						<button class="hintModal btn btn-primary">Example
+							<div class="hintModal_container">
+								Regarding the line you provided at the end of your message (pip install git+https://github.com/huggingface/transformers), it seems to be a command to install the transformers library directly from its GitHub repository. This can be useful if you want to install a version of the library that may contain updates or fixes not yet available in the version distributed via PyPI.
+							</div>
+						</button>
+					</div>
+					<div class="exampleCode"><pre><code>
+						<p>{
+							"metadata": {
+								"total_size": 14483464192
+							},
+							"weight_map": {
+								"lm_head.weight": "model-00003-of-00003.safetensors",
+								"model.embed_tokens.weight": "model-00001-of-00003.safetensors",
+								"model.layers.0.input_layernorm.weight": "model-00001-of-00003.safetensors",
+								"model.layers.0.mlp.down_proj.weight": "model-00001-of-00003.safetensors",
+								"model.layers.0.mlp.gate_proj.weight": "model-00001-of-00003.safetensors",
+								"model.layers.0.mlp.up_proj.weight": "model-00001-of-00003.safetensors",
+								"model.layers.0.post_attention_layernorm.weight": "model-00001-of-00003.safetensors",
+								"model.layers.0.self_attn.k_proj.weight": "model-00001-of-00003.safetensors",
+								"model.layers.0.self_attn.o_proj.weight": "model-00001-of-00003.safetensors",</p>
+					</code></pre></div>
+				</div>
+				
+				<div class="exampleContainer">
+					<div class="exampleLive">
+						<div class="exampleLiveTitle">generation_config.json
+						</div>
+						<button class="hintModal btn btn-primary">Example
+							<div class="hintModal_container">
+								Regarding the line you provided at the end of your message (pip install git+https://github.com/huggingface/transformers), it seems to be a command to install the transformers library directly from its GitHub repository. This can be useful if you want to install a version of the library that may contain updates or fixes not yet available in the version distributed via PyPI.
+							</div>
+						</button>
+					</div>
+					<div class="exampleCode"><pre><code>
+						<p>{
+							"_from_model_config": true,
+							"bos_token_id": 1,
+							"eos_token_id": 2,
+							"transformers_version": "4.36.0"
+						  }
+						  </p>
+					</code></pre></div>
+				</div>
+				
+				<div class="exampleContainer">
+					<div class="exampleLive">
+						<div class="exampleLiveTitle">tokenizer_config</div>
+						<button class="hintModal btn btn-primary">Example
+							<div class="hintModal_container">
+								Regarding the line you provided at the end of your message (pip install git+https://github.com/huggingface/transformers), it seems to be a command to install the transformers library directly from its GitHub repository. This can be useful if you want to install a version of the library that may contain updates or fixes not yet available in the version distributed via PyPI.
+							</div>
+						</button>
+					</div>
+					<div class="exampleCode"><pre><code>
+						<p>{
+							"add_bos_token": true,
+							"add_eos_token": false,
+							"added_tokens_decoder": {
+							  "0": {
+								"content": "<unk>",
+								"lstrip": false,
+								"normalized": false,
+								"rstrip": false,
+								"single_word": false,
+								"special": true
+							  },</p>
+					</code></pre></div>
+				</div>
+				
+
+				
+			</div>
+			<div class="page" data-page="Healthcare GPT">
+				
+				<div class="pageCaption">Healthcare GPT</div>
+				
+				<div class="blockCaption">Documentation</div>
+				
+				<div class="docContainer">
+					<div class="docLive">
+						<div class="docTitle">About</div>
+					</div>
+					<div class="docCode"><pre><code>
+						<p>This model card corresponds to the 7B base version of the Gemma model. You can also visit the model card of the 2B base model, 7B instruct model, and 2B instruct model.</p>
+					</code></pre></div>
+				</div>
+
+				<div class="docContainer">
+					<div class="docLive">
+						<div class="docTitle">Instruction Format</div>
+					</div>
+					<div class="docCode"><pre><code>
+						<p>Gemma is a family of lightweight, state-of-the-art open models from Google, built from the same research and technology used to create the Gemini models. They are text-to-text, decoder-only large language models, available in English, with open weights, pre-trained variants, and instruction-tuned variants. Gemma models are well-suited for a variety of text generation tasks, including question answering, summarization, and reasoning. Their relatively small size makes it possible to deploy them in environments with limited resources such as a laptop, desktop or your own cloud infrastructure, democratizing access to state of the art AI models and helping foster innovation for everyone.</p>
+					</code></pre></div>
+				</div>
+				
+				<div class="docContainer">
+					<div class="docLive">
+						<div class="docTitle">Usage - Fine-tuning examples</div>
+					</div>
+					<div class="docCode"><pre><code>
+						<p>Below we share some code snippets on how to get quickly started with running the model. First make sure to pip install -U transformers, then copy the snippet from the section that is relevant for your usecase.
+							
+							Running the model on a CPU
+							from transformers import AutoTokenizer, AutoModelForCausalLM
+
+							tokenizer = AutoTokenizer.from_pretrained("google/gemma-7b")
+							model = AutoModelForCausalLM.from_pretrained("google/gemma-7b")
+
+							input_text = "Write me a poem about Machine Learning."
+							input_ids = tokenizer(input_text, return_tensors="pt")
+
+							outputs = model.generate(**input_ids)
+							print(tokenizer.decode(outputs[0]))
+
+							Running the model on a single / multi GPU
+							# pip install accelerate
+							from transformers import AutoTokenizer, AutoModelForCausalLM
+
+							tokenizer = AutoTokenizer.from_pretrained("google/gemma-7b")
+							model = AutoModelForCausalLM.from_pretrained("google/gemma-7b", device_map="auto")
+
+							input_text = "Write me a poem about Machine Learning."
+							input_ids = tokenizer(input_text, return_tensors="pt").to("cuda")
+
+							outputs = model.generate(**input_ids)
+							print(tokenizer.decode(outputs[0]))
+
+							Running the model on a GPU using different precisions
+							Using torch.float16
+							# pip install accelerate
+							from transformers import AutoTokenizer, AutoModelForCausalLM
+
+							tokenizer = AutoTokenizer.from_pretrained("google/gemma-7b")
+							model = AutoModelForCausalLM.from_pretrained("google/gemma-7b", device_map="auto", torch_dtype=torch.float16)
+
+							input_text = "Write me a poem about Machine Learning."
+							input_ids = tokenizer(input_text, return_tensors="pt").to("cuda")
+
+							outputs = model.generate(**input_ids)
+							print(tokenizer.decode(outputs[0]))
+						</p>
+					</code></pre></div>
+				</div>
+				
+				<div class="docContainer">
+					<div class="docLive">
+						<p>Together, JAX and ML Pathways are used as described in the paper about the Gemini family of models; "the 'single controller' programming model of Jax and Pathways allows a single Python process to orchestrate the entire training run, dramatically simplifying the development workflow."</p>
+					</div>
+				</div>
+				
+				
+				<div class="blockCaption">Benchmark Results</div>
+				
+				<div class="exampleContainer">
+					<div class="exampleLive">
+						<div class="exampleLiveTitle">Model evaluation metrics and results.</div>
+						<button class="hintModal btn btn-primary">Example
+							<div class="hintModal_container">
+								Regarding the line you provided at the end of your message (pip install git+https://github.com/huggingface/transformers), it seems to be a command to install the transformers library directly from its GitHub repository. This can be useful if you want to install a version of the library that may contain updates or fixes not yet available in the version distributed via PyPI.
+							</div>
+						</button>
+					</div>
+					<div class="exampleCode"><pre><code>
+						<p>These models were evaluated against a large collection of different datasets and metrics to cover different aspects of text generation:
+
+							Benchmark	Metric	2B Params	7B Params
+							MMLU	5-shot, top-1	42.3	64.3
+							HellaSwag	0-shot	71.4	81.2
+							PIQA	0-shot	77.3	81.2
+							SocialIQA	0-shot	59.7	51.8
+							BooIQ	0-shot	69.4	83.2
+							WinoGrande	partial score	65.4	72.3
+							CommonsenseQA	7-shot	65.3	71.3
+							OpenBookQA		47.8	52.8
+							ARC-e		73.2	81.5
+							ARC-c		42.1	53.2
+							TriviaQA	5-shot	53.2	63.4
+							Natural Questions	5-shot	-	23
+							HumanEval	pass@1	22.0	32.3
+							MBPP	3-shot	29.2	44.4
+							GSM8K	maj@1	17.7	46.4
+							MATH	4-shot	11.8	24.3
+							AGIEval		24.2	41.7
+							BIG-Bench		35.2	55.1
+							------------------------------	-------------	-----------	---------
+							Average		54.0	56.4</p>
+					</code></pre></div>
+				</div>
+				
+				<div class="exampleContainer">
+					<div class="exampleLive">
+						<div class="exampleLiveTitle">Evaluation Results : 
+							The results of ethics and safety evaluations are within acceptable thresholds for meeting internal policies for categories such as child safety, content safety, representational harms, memorization, large-scale harms. On top of robust internal evaluations, the results of well known safety benchmarks like BBQ, BOLD, Winogender, Winobias, RealToxicity, and TruthfulQA are shown here.</div>
+							<button class="hintModal btn btn-primary">Example
+								<div class="hintModal_container">
+									Regarding the line you provided at the end of your message (pip install git+https://github.com/huggingface/transformers), it seems to be a command to install the transformers library directly from its GitHub repository. This can be useful if you want to install a version of the library that may contain updates or fixes not yet available in the version distributed via PyPI.
+								</div>
+							</button>
+					</div>
+					<div class="exampleCode"><pre><code>
+						<p>
+							Benchmark	Metric	2B Params	7B Params
+							RealToxicity	average	6.86	7.90
+							BOLD		45.57	49.08
+							CrowS-Pairs	top-1	45.82	51.33
+							BBQ Ambig	1-shot, top-1	62.58	92.54
+							BBQ Disambig	top-1	54.62	71.99
+							Winogender	top-1	51.25	54.17
+							TruthfulQA		44.84	31.81
+							Winobias 1_2		56.12	59.09
+							Winobias 2_2		91.10	92.23
+							Toxigen		29.77	39.59
+							------------------------------	-------------	-----------	---------</p>
+					</code></pre></div>
+					
+				</div>
+				<p>Using the benchmark evaluation metrics described in this document, these models have shown to provide superior performance to other, comparably-sized open model alternatives.</p>
+			</div>
+			<div class="page" data-page="Health Instructor">
+			
+				<div class="pageCaption">
+					Health Instructor</div>
+				
+				<div class="blockCaption">Documentation</div>
+				
+				<div class="docContainer">
+					<div class="docLive">
+						<div class="docTitle">About</div>
+					</div>
+					<div class="docCode"><pre><code>
+						<p>from transformers import AutoModelForCausalLM, AutoTokenizer
+							
+							device = "cuda" # the device to load the model onto
+			
+							model = AutoModelForCausalLM.from_pretrained("prithivMLmods/HealthCare-Instructor-Remedies") tokenizer = AutoTokenizer.from_pretrained("prithivMLmods/HealthCare-Instructor-Remedies")</p>
+					</code></pre></div>
+				</div>
+				
+				<div class="docContainer">
+					<div class="docLive">
+						<p>messages = [ {"role": "user", "content": "What is your favourite condiment?"}, {"role": "assistant", "content": "Well, I'm quite partial to a good squeeze of fresh lemon juice. It adds just the right amount of zesty flavour to whatever I'm cooking up in the kitchen!"}, {"role": "user", "content": "Do you have mayonnaise recipes?"} ]
+
+							encodeds = tokenizer.apply_chat_template(messages, return_tensors="pt")
+							
+							model_inputs = encodeds.to(device) model.to(device)
+							
+							generated_ids = model.generate(model_inputs, max_new_tokens=1000, do_sample=True) decoded = tokenizer.batch_decode(generated_ids) print(decoded[0])</p>
+
+						<p>Installing transformers from source should solve the issue; pip install git+https://github.com/huggingface/transformers</p>
+					</div>
+				</div>
+				
+				
+				<div class="blockCaption">Examples</div>
+				
+				<div class="exampleContainer">
+					<div class="exampleLive">
+						<div class="exampleLiveTitle">AutoModelForCausalLM.from_pretrained</div>
+						<button class="hintModal btn btn-primary">Example
+							<div class="hintModal_container">
+								Regarding the line you provided at the end of your message (pip install git+https://github.com/huggingface/transformers), it seems to be a command to install the transformers library directly from its GitHub repository. This can be useful if you want to install a version of the library that may contain updates or fixes not yet available in the version distributed via PyPI.
+							</div>
+						</button>
+					</div>
+					<div class="exampleCode"><pre><code>
+						<p>
+							## Model Architecture
+							- Grouped-Query Attention
+							- Sliding-Window Attention
+							- Byte-fallback BPE tokenizer
+							
+							
+							Installing transformers from source should solve the issue
+							pip install git+https://github.com/huggingface/transformers
+							</p>
+					</code></pre></div>
+				</div>
+				
+			</div>
+			<div class="page" data-page="OHIF">
+			
+				<div class="pageCaption">OHIF</div>
+				
+				<div class="blockCaption">Documentation</div>
+				
+				<div class="docContainer">
+					<div class="docLive">
+						<div class="docTitle">About</div>
+					</div>
+					<div class="docCode"><pre><code>
+						<p>Open Health Imaging Foundation [ OHIF ]
+							
+							Advanced visualization:
+							See all the details with support for multi-modal image fusion, multi-planar reformatting, and more
+
+							High-performance:
+							Speed up your work with GPU accelerated image rendering and multi-threaded image decoding
+
+							Web application:
+							Load cases from anywhere, instantly, with no installation required. Supports all modern browsers.
+
+							User-centered design:
+							Professional product and interaction design with a focus on usability
+
+
+						</p>
+					</code></pre></div>
+				</div>
+
+				<div class="docContainer">
+					<div class="docLive">
+						<div class="docTitle">Docker Blank</div>
+					</div>
+					<div class="docCode"><pre><code>
+						<p>FROM node:18.16.1-slim as json-copier
+
+							RUN mkdir /usr/src/app
+							WORKDIR /usr/src/app
+							# Clone the application
+							RUN apt-get update && apt-get install -y git
+							
+							RUN git clone --recursive https://github.com/OHIF/Viewers.git .
+							
+							# # COPY ["package.json", "yarn.lock", "preinstall.js", "./"]
+							# COPY extensions /usr/src/app/extensions
+							# COPY modes /usr/src/app/modes
+							# COPY platform /usr/src/app/platform
+							
+							# Find and remove non-package.json files
+							#RUN find extensions \! -name "package.json" -mindepth 2 -maxdepth 2 -print | xargs rm -rf
+							#RUN find modes \! -name "package.json" -mindepth 2 -maxdepth 2 -print | xargs rm -rf
+							#RUN find platform \! -name "package.json" -mindepth 2 -maxdepth 2 -print | xargs rm -rf
+							
+							# Copy Files
+							FROM node:18.16.1-slim as builder
+							RUN apt-get update && apt-get install -y build-essential python3
+							RUN mkdir /usr/src/app
+							WORKDIR /usr/src/app
+							
+							COPY --from=json-copier /usr/src/app .
+							
+							# Run the install before copying the rest of the files
+							RUN yarn config set workspaces-experimental true
+							RUN yarn install --frozen-lockfile --verbose
+							
+							COPY . .
+							
+							# To restore workspaces symlinks
+							RUN yarn install --frozen-lockfile --verbose
+							
+							ENV PATH /usr/src/app/node_modules/.bin:$PATH
+							ENV QUICK_BUILD true
+							# ENV GENERATE_SOURCEMAP=false
+							# ENV REACT_APP_CONFIG=config/default.js
+							
+							RUN yarn run build
+							# Stage 3: Bundle the built application into a Docker container
+							# which runs Nginx using Alpine Linux
+							FROM nginxinc/nginx-unprivileged:1.25-alpine as final
+							#RUN apk add --no-cache bash
+							USER nginx
+							COPY --chown=nginx:nginx nginx.conf /etc/nginx/conf.d/default.conf
+							COPY --chown=nginx:nginx app-config.js /usr/share/nginx/html/app-config.js
+							COPY --from=builder /usr/src/app/platform/app/dist /usr/share/nginx/html
+							# In entrypoint.sh, app-config.js might be overwritten, so chmod it to be writeable.
+							# The nginx user cannot chmod it, so change to root.
+							USER root
+							RUN chmod 666 /usr/share/nginx/html/app-config.js
+							USER nginx
+							CMD ["nginx", "-g", "daemon off;"]</p>
+					</code></pre></div>
+				</div>
+				
+				<div class="docContainer">
+					<div class="docLive">
+						<div class="docTitle">app-config.js</div>
+					</div>
+					<div class="docCode"><pre><code>
+						<p>window.config = {
+							routerBasename: "/",
+							extensions: [],
+							modes: [],
+							showStudyList: true,
+							dataSources: [
+							  { ....
+								....
+								..
+								.
+							  }
+							</p>
+					</code></pre></div>
+				</div>
+				
+				<div class="docContainer">
+					<div class="docLive">
+						<div class="docTitle">nginx.conf</div>
+					</div>
+					<div class="docCode"><pre><code>
+						<p>server {
+							listen 7860 default_server;
+							listen [::]:7860 default_server;
+							location / {
+							  root   /usr/share/nginx/html;
+							  index  index.html index.htm;
+							  try_files $uri $uri/ /index.html;
+							  add_header Cross-Origin-Opener-Policy same-origin;
+							  add_header Cross-Origin-Embedder-Policy require-corp;
+							  add_header Cross-Origin-Resource-Policy cross-origin;
+							  proxy_set_header Host $host;
+							  proxy_set_header X-Real-IP $remote_addr;
+							  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+							  proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
+							}
+							error_page   500 502 503 504  /50x.html;
+							location = /50x.html {
+							  root   /usr/share/nginx/html;
+							}
+						  }</p>
+					</code></pre></div>
+				</div>
+				
+				<div class="docContainer">
+					<div class="docLive">
+						<div class="docTitle">Notes</div>
+						<div class="docText">You may use external click function for element</div>
+					</div>
+					<div class="docCode"><pre><code>
+						<p> title: OHIF
+							emoji: 🏃
+							colorFrom: pink
+							colorTo: yellow
+							sdk: docker
+							pinned: false
+							license: creativeml-openrail-m</p>
+					
+					</code></pre></div>
+					<div class="docLive">
+						<div class="docText">Also you may use inline bind</div>
+					</div>
+					<div class="docCode"><pre><code>
+						<p>Benefit from our thriving open-source community's expertise, collaboration, and innovation for limitless possibilities. Build custom workflows using a composable set of professionally designed React user interface components, leveraging the expertise and contributions of our active community. </p>
+					</code></pre></div>
+					<div class="docLive">
+						<p>Additionally, create custom workflows with ease through our plugin framework, allowing for the development of task-based workflow modes that can reuse core functionality. Connect seamlessly to image archives with standard APIs such as DICOMWeb and OpenID Connect, ensuring compatibility and compliance with industry standards. Join our community today and unlock the potential for unparalleled collaboration and innovation.</p>
+					</div>
+				</div>
+				
+				
+				
+				
+				
+				
+				<div class="blockCaption">Examples</div>
+				
+				<div class="exampleContainer">
+					<div class="exampleLive">
+						<div class="exampleLiveTitle">OHIF params</div>
+						<button class="hintModal btn btn-primary">Example
+							<div class="hintModal_container">
+								Regarding the line you provided at the end of your message (pip install git+https://github.com/huggingface/transformers), it seems to be a command to install the transformers library directly from its GitHub repository. This can be useful if you want to install a version of the library that may contain updates or fixes not yet available in the version distributed via PyPI.
+							</div>
+						</button>
+					</div>
+					<div class="exampleCode"><pre><code>
+						<p>   sourceName: "dicomweb",
+							configuration: {
+							  friendlyName: "dcmjs DICOMWeb Server",
+							  name: "DCM4CHEE",
+							  wadoUriRoot: "https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/wado",
+							  qidoRoot: "https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/rs",
+							  wadoRoot: "https://server.dcmjs.org/dcm4chee-arc/aets/DCM4CHEE/rs",
+							  qidoSupportsIncludeField: true,
+							  supportsReject: true,
+							  imageRendering: "wadors",
+							  thumbnailRendering: "wadors",
+							  enableStudyLazyLoad: true,
+							  supportsFuzzyMatching: true,
+							  supportsWildcard: true,
+							  omitQuotationForMultipartRequest: true,</p>
+					</code></pre></div>
+				</div>
+				
+				<div class="exampleContainer">
+					<div class="exampleLive">
+						<div class="exampleLiveTitle">Container Blank</div>
+						<button class="hintModal btn btn-primary">Example
+							<div class="hintModal_container">
+								Regarding the line you provided at the end of your message (pip install git+https://github.com/huggingface/transformers), it seems to be a command to install the transformers library directly from its GitHub repository. This can be useful if you want to install a version of the library that may contain updates or fixes not yet available in the version distributed via PyPI.
+							</div>
+						</button>
+					</div>
+					<div class="exampleCode"><pre><code>
+						<p>defaultDataSourceName: "dicomweb",
+						};
+						</p>
+					</code></pre></div>
+				</div>
+				
+			</div>
+			<div class="page" data-page="Medical-LLM Leaderboard">
+			
+				<div class="pageCaption">Medical-LLM Leaderboard</div>
+				
+				<div class="blockCaption">Documentation</div>
+				
+				<div class="docContainer">
+					<div class="docLive">
+						<div class="docTitle">About</div>
+					</div>
+					<div class="docCode"><pre><code>
+						<p>The Open Medical LLM Leaderboard aims to track, rank and evaluate the performance of large language models (LLMs) on medical question answering tasks. It evaluates LLMs across a diverse array of medical datasets, including MedQA (USMLE), PubMedQA, MedMCQA, and subsets of MMLU related to medicine and biology. The leaderboard offers a comprehensive assessment of each model's medical knowledge and question answering capabilities.</p>
+					</code></pre></div>
+				</div>
+				
+				<div class="docContainer">
+					<div class="docLive">
+						<p>The datasets cover various aspects of medicine such as general medical knowledge, clinical knowledge, anatomy, genetics, and more. They contain multiple-choice and open-ended questions that require medical reasoning and understanding. More details on the datasets can be found in the "LLM Benchmarks Details" section below.</p>
+						<p>The main evaluation metric used is Accuracy (ACC). Submit a model for automated evaluation on the "Submit" page. If you have comments or suggestions on additional medical datasets to include, please reach out to us in our discussion forum.</p>
+					</div>
+				</div>
+				
+				
+				<div class="blockCaption">Examples</div>
+				
+				<div class="exampleContainer">
+					<div class="exampleLive">
+						<div class="exampleLiveTitle">Open Medical-LLM Leaderboard</div>
+						<button class="hintModal btn btn-primary">Example
+							<div class="hintModal_container">
+								Regarding the line you provided at the end of your message (pip install git+https://github.com/huggingface/transformers), it seems to be a command to install the transformers library directly from its GitHub repository. This can be useful if you want to install a version of the library that may contain updates or fixes not yet available in the version distributed via PyPI.
+							</div>
+						</button>
+					</div>
+					<div class="exampleCode"><pre><code>
+						<p>scheduler = BackgroundScheduler()
+							scheduler.add_job(restart_space, "interval", seconds=1800)
+							scheduler.add_job(launch_backend, "interval", seconds=100)
+							scheduler.start()
+
+
+						    snapshot_download(
+						    repo_id=QUEUE_REPO, local_dir=EVAL_REQUESTS_PATH, repo_type="dataset", tqdm_class=None, etag_timeout=30, token=TOKEN
+							)
+
+							snapshot_download(
+							repo_id=RESULTS_REPO, local_dir=EVAL_RESULTS_PATH, repo_type="dataset", tqdm_class=None, etag_timeout=30, token=TOKEN
+						)
+
+
+							</p>
+					</code></pre></div>
+				</div>
+				
+				<div class="exampleContainer">
+					<div class="exampleLive">
+						<div class="exampleLiveTitle">Define the folders to delete folders_to_delete = ['eval-results', 'eval-queue', 'eval-queue-bk', 'eval-results-bk']</div>
+						<div class="titleModal light" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:200px">The top-performing models like "Med-PaLM 2 (best)" and "GPT-4-base (5-shot)" consistently achieve higher scores across most tasks compared to other models.
+
+							However, it's important to note that even though "Med-PaLM 2 (best)" might have slightly higher average scores, "GPT-4-base (5-shot)" shows competitive performance across the tasks with a relatively high average score. </div>
+					</div>
+					<div class="exampleCode"><pre><code>
+						<p> Model
+							Average ⬆️
+							MedMCQA
+							MedQA
+							MMLU Anatomy
+							MMLU Clinical Knowledge
+							MMLU College Biology
+							MMLU College Medicine
+							MMLU Medical Genetics
+							MMLU Professional Medicine
+							PubMedQA
+							
+							🟢
+							GPT-4-base (5-shot)
+							
+							87
+							73.7
+							86.1
+							85.2
+							88.7
+							97.2
+							80.9
+							97
+							93.8
+							80.4
+							🟢
+							Med-PaLM 2 (best)
+							
+							86.66
+							72.3
+							86.5
+							84.4
+							88.7
+							95.8
+							83.2
+							92
+							95.2
+							81.8
+							🟢
+							Med-PaLM 2 (ER)
+							
+							85.46
+							72.3
+							85.4
+							84.4
+							88.7
+							95.8
+							83.2
+							92
+							92.3
+							75
+							🟢
+							GPT-4 (5-shot)
+							
+							83.69
+							72.4
+							81.4
+							80
+							86.4
+							95.1
+							76.9
+							92
+							93.8
+							75.2
+							🟢
+							Flan-PaLM
+							
+							74.7
+							57.6
+							67.6
+							63.7
+							80.4
+							88.9
+							76.3
+							75
+							83.8
+							79
+							🔶
+							Nexusflow/Starling-LM-7B-beta
+							
+							66.25
+							50.25
+							52.47
+							64.44
+							69.81
+							73.61
+							65.32
+							73
+							69.12
+							78.2
+							🟢
+							unsloth/gemma-7b
+							
+							64.18
+							48.96
+							47.21
+							59.26
+							69.81
+							79.86
+							60.12
+							70
+							66.18
+							76.2
+							🟢
+							mistralai/Mistral-7B-v0.1
+							
+							62.85
+							48.2
+							50.82
+							55.56
+							68.68
+							68.06
+							59.54
+							71
+							68.38
+							75.4
+							🔶
+							NousResearch/Hermes-2-Pro-Mistral-7B
+							
+							62.55
+							47.19
+							50.35
+							55.56
+							67.55
+							70.83
+							61.85
+							67
+							68.01
+							74.6
+							
+							</p>
+					</code></pre></div>
+				</div>
+				
+			</div>
+			<div class="page" data-page="Clinical DataBase">
+			
+				<div class="pageCaption">
+					Clinical DataBase</div>
+				
+				<div class="blockCaption">Documentation</div>
+				
+				<div class="docContainer">
+					<div class="docLive">
+						<div class="docTitle">About</div>
+					</div>
+					<div class="docCode"><pre><code>
+						<p>The clinical database comprises a range of websites crucial for medical practice and study. Among them, one website provides access to heart and breath sounds, aiding in the training and practice of auscultation techniques for medical professionals and students. Additionally, another platform utilizes data from the PTB-XL ECG Database, offering a comprehensive collection of electrocardiogram (ECG) recordings to facilitate the analysis and interpretation of cardiac rhythms for educational and diagnostic purposes. Moreover, leveraging data sourced from the NIH Chest X-ray Database, another website delivers a repository of chest X-ray images, supporting the examination and diagnosis of various pulmonary and thoracic conditions by medical practitioners and learners.</p>
+					</code></pre></div>
+				</div>
+
+				<div class="docContainer">
+					<div class="docLive">
+						<div class="docTitle">Database Analysis</div>
+					</div>
+					<div class="docCode"><pre><code>
+						<p># Set home to the user's home directory
+							ENV HOME=/home/user \
+								PATH=/home/user/.local/bin:$PATH 
+	
+							# Set the working directory to the user's home directory
+							WORKDIR $HOME/app
+							
+							# Copy the current directory contents into the container at $HOME/app setting the owner to the user
+							COPY --chown=user . $HOME/app
+							
+							# Install npm dependencies
+							RUN npm install
+							
+							# Build client and server
+							RUN export VITE_SERVER_URL=$MODEL_REPO_NAME && npm run build
+							
+							EXPOSE 7860
+							CMD [ "npm", "run", "start" ]</p>
+					</code></pre></div>
+				</div>
+				
+				<div class="docContainer">
+					<div class="docLive">
+						<div class="docTitle">App.tsx</div>
+					</div>
+					<div class="docCode"><pre><code>
+						<p> This React component renders a list of medical-related websites with icons, titles, descriptions, and links. It imports necessary modules from React, `react-helmet`, and `react-router-dom`, along with SVG icons for auscultation, ECG, and chest X-ray. 
+
+							The `links` array holds objects with properties for each website, including icon, title, description, and URL. 
+							
+							Within the `App` component, the `navigate` function is initialized using the `useNavigate` hook.
+							
+							The component returns JSX, structuring the page with a title, description, and a list of links. It utilizes the `Helmet` component to set the webpage's title. 
+							
+							The `map` function iterates through the `links` array, rendering each link as a card with its respective icon, title, description, and an "Enter" button. 
+							
+							Upon clicking the "Enter" button, it navigates to the corresponding link using the `navigate` function, either directly or through React Router routing.
+							
+							###
+
+							import React from 'react';
+							import { Helmet } from 'react-helmet';
+							import { useNavigate } from 'react-router-dom';
+							import AuscultateSvg from './auscultate.svg';
+							import EcgSvg from './ecg.svg';
+							import CxrSvg from './xray.svg';
+							
+							###
+							</p>
+					</code></pre></div>
+				</div>
+				
+				<div class="docContainer">
+					<div class="docLive">
+						<div class="docTitle">Main</div>
+					</div>
+					<div class="docCode"><pre><code>
+						<p> 
+							This code sets up a React application using React Router for client-side routing. It imports necessary modules from React, including createRoot from react-dom/client, and CSS styles from globals.css. The main component, App, is imported from './App'.
+
+							The code then creates a browser router instance using createBrowserRouter from react-router-dom, specifying a single route for the root path ('/') that renders the App componen
+							
+							###
+
+							import React from 'react';
+							import { createRoot } from 'react-dom/client';
+							import './globals.css';
+							import App from './App';
+							import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+							###
+						</p>
+					</code></pre></div>
+				</div>
+				
+				<div class="docContainer">
+					<div class="docLive">
+						<div class="docTitle">Notes</div>
+						<div class="docText">You may use external click function for element</div>
+					</div>
+					<div class="docCode"><pre><code>
+						<p>app.use((err: unknown, _req: Request, res: Response, next: NextFunction) => {
+							if (res.headersSent) {
+							  return next(err);</p>
+
+						<p>}<span class="text">)</span>;</p>
+					
+					</code></pre></div>
+					<div class="docLive">
+						<div class="docText">Also you may use bind</div>
+					</div>
+					<div class="docCode"><pre><code>
+						<p>if (isBoom(err)) {
+							return res.status(err.output.statusCode).json(err.output.payload);
+						  }
+						  next(err);
+						});
+						
+						// Handle client routing, return all requests to the app
+						app.get('*', (_req, res) => {
+						  res.sendFile(join(__dirname, 'app/index.html'));
+						});
+						</p>
+					</code></pre></div>
+					<div class="docLive">
+						<p>Within the root, it renders the RouterProvider component from react-router-dom, passing the created router instance as a prop, wrapped in a React.StrictMode component for development checks.
+
+							Overall, this code initializes a React application with client-side routing, rendering the App component inside a browser router setup.</p>
+					</div>
+				</div>
+				
+				
+				
+				
+				
+				
+				<div class="blockCaption">Examples</div>
+				
+				<div class="exampleContainer">
+					<div class="exampleLive">
+						<div class="exampleLiveTitle">Default params</div>
+						<button class="hintModal btn btn-primary">Example
+							<div class="hintModal_container">
+								Regarding the line you provided at the end of your message (pip install git+https://github.com/huggingface/transformers), it seems to be a command to install the transformers library directly from its GitHub repository. This can be useful if you want to install a version of the library that may contain updates or fixes not yet available in the version distributed via PyPI.
+							</div>
+						</button>
+					</div>
+					<div class="exampleCode"><pre><code>
+						<p>Resources and Technical Documentation:
+
+							-Responsible Generative AI Toolkit
+							-Gemma on Kaggle
+							-Gemma on Vertex Model Garden
+							  
+							First make sure to install flash-attn in your environment pip install flash-attn
+
+							model = AutoModelForCausalLM.from_pretrained(
+								model_id, 
+								torch_dtype=torch.float16, 
+							+   attn_implementation="flash_attention_2"
+							).to(0)
+						</p>
+					</code></pre></div>
+				</div>
+				
+				<div class="exampleContainer">
+					<div class="exampleLive">
+						<div class="exampleLiveTitle">Pipeline</div>
+						<button class="hintModal btn btn-primary">Example
+							<div class="hintModal_container">
+								Regarding the line you provided at the end of your message (pip install git+https://github.com/huggingface/transformers), it seems to be a command to install the transformers library directly from its GitHub repository. This can be useful if you want to install a version of the library that may contain updates or fixes not yet available in the version distributed via PyPI.
+							</div>
+						</button>
+					</div>
+					<div class="exampleCode"><pre><code>
+						<p>name: CI Pipeline
+
+							on:
+							  push:
+								branches:
+								  - main
+							  pull_request:
+								branches:
+								  - main
+							
+							jobs:
+							  build:
+								runs-on: ubuntu-latest
+								
+								steps:
+								- name: Checkout code
+								  uses: actions/checkout@v2
+							
+								- name: Set up Node.js
+								  uses: actions/setup-node@v2
+								  with:
+									node-version: '14'
+							
+								- name: Install dependencies
+								  run: npm install
+							
+								- name: Build React app
+								  run: npm run build
+							
+								- name: Run tests
+								  run: npm test
+							
+								- name: Deploy
+								  run: |
+									# Code for deployment (e.g., deploying to hosting service)
+							</p>
+					</code></pre></div>
+				</div>
+				
+			</div>
+		</div>
+	
+	</div>
+
+
+	<div class="page" data-page="Contributors">
+			
+		<div class="pageCaption">Contributors Info</div>
+		
+		<div class="blockCaption">Documentation</div>
+		
+		<div class="docContainer">
+			<div class="docLive">
+				<div class="docTitle">About Contributors</div>
+			</div>
+			<div class="docCode"><pre><code>
+				<p>
+					The maturity models have been developed by students of Information Technology to bonafide that the work of:
+					
+					Jeyaseelan J - jeyaseelanj2003@gmail.com
+					Kameshwaran T - thangarajkamesh123@gmail.com
+					Prithiv Sakthi U R - prithivsakthi676@gmail.com
+					Shivaraj A - shivarajlingam@gmail.com
+					
+					© EHRM Maturity Models.
+
+				</p>
+			</code></pre></div>
+		</div>
+	
+	
+	<div id="footer">
+		<div class="prjCopyright">
+			<div class="prjLicense">CreativeML OpenRAIL -m License</div>
+			<div class="prjAuthor">Developed by Students of Info Tech</div>
+		</div>
+	</div>
+	
+</div>
+
+
+
+<div style="display:none">
+
+	<div id="content">
+		Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+		<div class="popModal_footer">
+			<button type="button" class="btn btn-primary" data-popmodal-but="ok">ok</button>
+			<button type="button" class="btn btn-default" data-popmodal-but="cancel">cancel</button>
+		</div>
+	</div>
+
+
+	<div id="content2">
+		Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+	</div>
+
+
+	<div id="content3">
+		<ul>
+			<li><a href="">Menu 1</a></li>
+			<li><a href="">Menu 2</a></li>
+			<li><a href="">Menu 3</a></li>
+			<li><a href="">Menu 4</a></li>
+			<li></li>
+			<li><a href="">Menu 5</a></li>
+		</ul>
+	</div>
+
+
+	<div id="dialog_content" class="dialog_content">
+		<div class="dialogModal_header">Dialog header 1</div>
+		<div class="dialogModal_content">
+		Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.<br><br>
+		Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.<br><br>
+		Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.<br><br>
+		Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.<br><br>
+		Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.<br><br>
+		Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.<br><br>
+		Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.<br><br>
+		Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+		</div>
+		<div class="dialogModal_footer">
+			<button type="button" class="btn btn-primary" data-dialogmodal-but="next">Next</button>
+			<button type="button" class="btn btn-default" data-dialogmodal-but="cancel">Cancel</button>
+		</div>
+	</div>
+
+
+	<div id="dialog_content2" class="dialog_content">
+		<div class="dialogModal_header">Dialog header 2</div>
+		<div class="dialogModal_content">
+			Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+		</div>
+		<div class="dialogModal_footer">
+			<button type="button" class="btn btn-default btn-left" data-dialogmodal-but="prev">Back</button>
+			<button type="button" class="btn btn-primary" data-dialogmodal-but="next">Next</button>
+			<button type="button" class="btn btn-default" data-dialogmodal-but="cancel">Cancel</button>
+		</div>
+	</div>
+
+
+	<div id="dialog_content3" class="dialog_content">
+		<div class="dialogModal_header">Dialog header 3</div>
+		<div class="dialogModal_content">
+		Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+		</div>
+		<div class="dialogModal_footer">
+			<button type="button" class="btn btn-default btn-left" data-dialogmodal-but="prev">Back</button>
+			<button type="button" class="btn btn-primary" data-dialogmodal-but="ok">Ok</button>
+			<button type="button" class="btn btn-default" data-dialogmodal-but="cancel">Cancel</button>
+		</div>
+	</div>
+
+
+	<div id="confirm_content">
+		<div class="confirmModal_content">
+		Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+		</div>
+		<div class="confirmModal_footer">
+			<button type="button" class="btn btn-primary" data-confirmmodal-but="ok">Confirm</button>
+			<button type="button" class="btn btn-default" data-confirmmodal-but="cancel">Cancel</button>
+		</div>
+	</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/jquery/3.2.1/jquery.min.js"></script>
+<script src="popModal.js"></script>
+<script>
+$(function(){
+	$('#popModal_ex1').click(function(){
+		$('#popModal_ex1').popModal({
+			html : $('#content'),
+			placement : 'bottomLeft',
+			showCloseBut : true,
+			onDocumentClickClose : true,
+			onDocumentClickClosePrevent : '',
+			overflowContent : false,
+			inline : true,
+			asMenu : false,
+			size : '',
+			onOkBut : function(event, el) {},
+			onCancelBut : function(event, el) {},
+			onLoad : function(el) {},
+			onClose : function(el) {}
+		});
+	});
+		
+	$('#popModal_ex2').click(function(){
+		$('#popModal_ex2').popModal({
+			html : {url: 'ajax.html', errorText: 'An error has occurred'}
+		});
+	});
+	
+	$('#popModal_ex3').click(function(){
+		$('#popModal_ex3').popModal({
+			html : $('#content3'),
+			placement : 'bottomLeft',
+			asMenu : true
+		});
+	});
+	
+	$('#notifyModal_ex1').click(function(){
+		$('#content2').notifyModal({
+			duration : 2500,
+			placement : 'center',
+			overlay : true,
+			type : 'notify',
+			icon: false,
+			onLoad : function(el) {},
+			onClose : function(el) {}
+		});
+	});
+	
+	$('#dialogModal_ex1').click(function(){
+		$('.dialog_content').dialogModal({
+			topOffset: 0,
+			top: 0,
+			onDocumentClickClose : false,
+			onOkBut: function(event, el, current) {},
+			onCancelBut: function(event, el, current) {},
+			onLoad: function(el, current) {},
+			onClose: function(el, current) {},
+			onChange: function(el, current) {
+				if(current == 3){
+					el.find('.dialogModal_header span').text('Page 3');
+					$.ajax({url:'ajax.html'}).done(function(content){
+						el.find('.dialogModal_content').html(content);
+					});
+				}
+			}
+		});
+	});
+	
+	$('#confirmModal_ex1').click(function(){
+		$('#confirm_content').confirmModal({
+			topOffset: 0,
+			top: 0,
+			onOkBut: function(event, el) {},
+			onCancelBut: function(event, el) {},
+			onLoad: function(el) {},
+			onClose: function(el) {}
+		});
+	});
+	
+	
+	
+
+
+
+$(window).scroll(function(){
+	getActivePage();
+});
+getActivePage();
+
+function getActivePage() {
+	var nav = $('.page');
+	for (var i = 0; i < nav.length; i++) {
+		if ($(nav[i]).outerHeight() + $(nav[i])[0].getBoundingClientRect().top > $(window).height()*0.7) {
+			$('.tab').removeClass('active');
+			$('.tab[data-tab="' + $(nav[i]).attr('data-page') + '"]').addClass('active');
+			break;
+		}
+	}
+}
+
+$('.tab').click(function() {
+	$('html, body').animate({scrollTop: $('.page[data-page="'+$(this).attr('data-tab')+'"]').offset().top - 200}, 700, function(){
+		getActivePage();
+	});
+});
+
+$('.totop').click(function() {
+	$("html, body").animate({scrollTop: 0}, 700);
+});
+	
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+   *{
+        box-sizing: border-box;
+    }
+
+    #Subs-Dialog{
+        color: rgb(0, 0, 0);
+        border: none;
+        border-radius:10px;
+        background-color: rgb(255 255 255/30%);
+        backdrop-filter: blur(10px);
+    }
+
+    .maindiv{
+        height:auto;
+        width:auto;
+        margin-left:auto;
+        margin-right:auto;
+    }
+    .pay{
+        display: flex;
+    }
+    div >a{
+        padding: 1px;
+    }
+
+h4{
+    padding: 1%;
+}
+
+/*.div1 > h2{
+    color:red;
+}
+
+.div3 > h2{
+    color:lightgreen;
+}
+*/
+.div1{
+    border: black 2px solid;
+    border-width: 2px 2px 2px 0px;
+    padding: 3%;
+}
+.div2{
+    border:black 2px solid;
+    border-width: 2px 2px 2px 0px;
+    padding: 3%;
+}
+.div3{
+    border:black 2px solid;
+    border-width: 2px 0px 2px 0px;
+    padding: 3%;
+}
+.plan{
+    opacity: 0.7;
+}
+
+.a1{
+    text-decoration: none;
+    padding: 2%;
+    margin :  1% 0%;
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    background:red;
+    height: 15px;
+    width: max-content;
+
+}
+.a2{
+    text-decoration: none;
+    padding: 2%;
+    margin :  1% 0%;
+    color: aliceblue;
+    border-radius: 5px;
+    background:blue;
+    height: 15px;
+    width: max-content;
+
+}
+.a3{
+    text-decoration: none;
+    padding: 2%;
+    margin :  3% 0%;
+    color: aliceblue;
+    border-radius: 5px;
+    background:green;
+    height: 10%;
+    width:10%;
+}
+
+.div4 p{
+    margin: 1%;
+}
+.bottom{
+    display: flex;
+    flex-direction: row;
+    justify-content:center;
+    border: #6d6d6d 2px solid;
+    border-width: 0px 0px 0px 0px;
+    text-align: center;
+}
+.ba{
+    color: #ffffff;
+}
+
+.head{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+/* Sign Up CSS */
+
+
+
+#Signin{
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius:10px;
+    background-color: rgb(255 255 255/30%);
+    backdrop-filter: blur(10px);
+}
+
+.about-div{
+    height:auto;
+    max-width:600px;
+    display: flex;
+    flex-direction: column;
+}
+.content > h2{
+    text-align: center;
+    color:#1e22aa;
+}
+.header > i{
+    float: right;
+}

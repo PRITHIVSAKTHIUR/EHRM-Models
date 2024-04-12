@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+   
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+</head>
+<link href="https://fonts.googleapis.com/css?family=Rubik+Mono+One" rel="stylesheet">
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+ </script>
+<body>
+    <div class="container">
+        <button name="show" class="show">Sign In🩸</button>
+      </div>
+      
+      <div class="toast jam" aria-hidden="true">
+        <span class="close" aria-role="button" tabindex="0">&times;</span>
+        Only the Health Care Services and Documents were available in the EHRM Panel. Now, the services and Digital Health Transformer are free of cost. Soon, the Membership and Accountability Options will be set to 'Coming Soon.' Stay tuned! 🚀
+      </div>
+     <script>        $(function () {
+        $('.show').click(function() {
+          $('.toast').addClass('on');
+        });
+        $('.close').click(function() {
+          $('.toast').removeClass('on');
+        });
+      });
+    </script>
+
+
+</html>
