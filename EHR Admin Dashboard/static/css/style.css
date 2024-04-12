@@ -1,0 +1,23 @@
+
+h1{
+    text-align:center;
+}
+div{
+    margin: 1%;
+}
+th{
+    text-align: center;
+    color: white;
+    background-color: rgb(48, 40, 40);
+}   
+tr{
+    text-align: center;
+    background-color:yellow;
+    transition:0.75s;
+}
+tr:hover{
+    background-color:white;
+    border-width:10px;
+    font-size: larger;
+}
+

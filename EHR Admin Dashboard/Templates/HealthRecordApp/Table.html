@@ -1,0 +1,50 @@
+<html>
+    {% extends 'HealthRecordApp/base.html' %}
+    {% block content %}
+    <div>
+        <h1>Patient Health Records </h1>
+        <table border="solid 2px">
+            <thead id="head">
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Blood Type</th>
+                <th>Medical Condition</th>
+                <th>DOA</th>
+                <th>Doctor</th>
+                <th>Hospital</th>
+                <th>Insurance Provider</th>
+                <th>Billing Amt</th>
+                <th>Room No</th>
+                <th>Admission Type</th>
+                <th>Discharge Date</th>
+                <th>Medication</th>
+                <th>Test Result</th>
+                
+            </thead>
+            {% for k in data %}
+            <tr>
+                <td>{{k.id}}</td>
+                <td>{{k.Name}}</td>
+                <td>{{k.Age}}</td>
+                <td>{{k.Gender}}</td>
+                <td>{{k.Blood_Type}}</td>
+                <td>{{k.Medical_Condition}}</td>
+                <td>{{k.Date_of_Admission}}</td>
+                <td>{{k.Doctor}}</td>
+                <td>{{k.Hospital}}</td>
+                <td>{{k.Insurance_Provider}}</td>
+                <td>{{k.Billing_Amount}}</td>
+                <td>{{k.Room_Number}}</td>
+                <td>{{k.Admission_Type}}</td>
+                <td>{{k.Discharge_Date}}</td>
+                <td>{{k.Medication}}</td>
+                <td>{{k.Test_Result}}</td>
+             
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endblock %}
+</html>
