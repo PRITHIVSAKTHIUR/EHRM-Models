@@ -25,7 +25,7 @@ The maturity models have been developed by students of Information Technology to
 | Prithiv Sakthi U R| prithivsakthi676@gmail.com  |
 | Shivaraj A        | shivarajlingam@gmail.com    |
 
-## Deployment Link :  ehrm-services.vercel.app/
+## Deployment Link : ehrm-services.vercel.app/
 
 ## SOFTWARE SPECIFICATION
 Github : Branching Directory to StreamLit
