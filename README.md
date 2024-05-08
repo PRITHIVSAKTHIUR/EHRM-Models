@@ -1,4 +1,4 @@
-## EHRM [ ELECTRONIC HEALTH RECORD MANAGEMENT ]
+## EHRM [ ELECTRONIC HEALTH RECORD MANAGEMENT ]🫙
 
 Inspired & Developed accordance with HIMSS.org
 
@@ -45,5 +45,15 @@ System Power Delivery : 65 W (Minimum)
 
 -----------------------------------------------------------------------------
 
-			
+## Home Page 🗞️
 
+
+![row01](assets/service.png)
+
+## Clinical Support System 1 😷
+
+![row01](assets/service2.png)
+
+## Clinical Support System 2 📰
+
+![row01](assets/service3.png)
