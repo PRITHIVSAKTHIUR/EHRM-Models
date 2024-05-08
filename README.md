@@ -57,3 +57,9 @@ System Power Delivery : 65 W (Minimum)
 ## Clinical Support System 2 📰
 
 ![row01](assets/service3.png)
+
+.
+
+.
+
+.
